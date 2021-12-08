@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="main_container">
+        <div class="full_header">
+            <h2>Hi, {{ user.first_name }} {{ user.last_name }}!</h2>
+            <a href="/logout">Logout</a>
+        </div>
+
+        <div id="main_body">
+            <div id="group_list_box">
+                <h4>Here are the organizations you may join:</h4>
+
+                {% for group in all_groups %}
+                <div class="group_display">
+                    <h3><a href="/groups/{{group.id}}">{{  group.org_name  }}</a></h3>
+
+                    {% if group.created_by.id == request.session.user_id %}
+                    <a href="/groups/remove/{{group.id}}">Delete Group</a>
+                    {% endif %}
+
+                    <p>Members: {{ group.members.count }}</p>
+                    <p>{{ group.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id="add_org_container">
+                <div id="add_org_box">
+                    <form action="/groups/add_group" method='post'>
+                        {% csrf_token %}
+
+                        <h4>Create New Organization:</h4>
+
+                        <div class="form_box">
+                            <label for="org_name">Org Name</label>
+                            <input type="text" name='org_name' id='org_name'>
+                        </div>
+
+                        <div class="form_box">
+                            <label for="'desc">Description</label>
+                            <textarea name="desc" id="desc" cols="22" rows="5"></textarea>
+                        </div>
+
+                        <div id="add_org_btn">
+                            <button type='submit'>Create</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="messages">
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

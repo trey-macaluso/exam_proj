@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groups</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="details_container">
+        <div class="half_header">
+            <a href="/groups">Dashboard</a>
+            <a href="/logout">Logout</a>
+        </div>
+
+        <div id="details_body">
+            <div id="title_box">
+                <h2>{{ group.org_name }}</h2>
+                {% if user in group.members.all %}
+                <form action="/groups/leave_group/{{group.id}}" method='post'>
+                    {% csrf_token %}
+                    <button type='submit'>Leave Group</button>
+                </form>
+                
+                {% else %}
+                <form action="/groups/join_group/{{group.id}}" method='post'>
+                    {% csrf_token %}
+                    <button type='submit'>Join Group</button>
+                </form>
+
+                {% endif %}
+            </div>
+
+            {% if group.created_by.id == user.id %}
+            <a href="/groups/remove/{{group.id}}">Delete Group</a>
+            {% endif %}
+
+            <p>{{ group.description }}</p>
+            <br>
+
+            <h4>Created By: {{ group.created_by.first_name }} {{ group.created_by.last_name }}</h4>
+
+            <h4>Members:</h4>
+            {% for member in members %}
+            <p>{{ member.first_name }} {{member.last_name}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

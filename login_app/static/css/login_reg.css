@@ -1,0 +1,64 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+#container {
+    margin: auto;
+    height: 900px;
+    width: 900px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+#reg_container {
+    height: 700px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+h1 {
+    margin: 25px;
+    text-align: center;
+}
+
+.text_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: 5px;
+}
+
+label {
+    margin: 0px 0px 5px 0px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+#login_container {
+    height: 500px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.sub_btn {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    padding: 1px 6px;
+    margin: 10px;
+    box-shadow: 2px 2px 5px 0 black;
+}
